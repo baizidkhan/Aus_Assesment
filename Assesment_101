@@ -1,0 +1,425 @@
+/*
+Students are to create an application based on the class diagram above. Student needs to use the following for this part of the assessment:
+1. Create a main menu
+2. Array or multi-dimensional array is to be used.
+3. The program must be working..
+The purpose of this assessment is to access students' abilities to apply their knowledge in the program. Students need to submit a document with the code and screenshots of the result. Students need to include the value for the input in the document.
+
+
+
+Submission Instructions
+All submissions are to be submitted through Turnitin. Drop-boxes linked to Turnitin will be set up in Moodle. Assessments not submitted through these drop- boxes will not be considered. Submissions must be made by the end of session 7 and session 9.
+The Turnitin similarity score will be used to determine any plagiarism of your submitted assessment. Turnitin will check conference websites, Journal articles, online resources, and your peer's submissions for plagiarism. You can see your Turnitin similarity score when you submit your assessments to the appropriate drop-box. If your similarity score is of concern, you can change your assessment and resubmit. However, re-submission is only allowed before
+the submission due date and time. You cannot make re-submissions after the due date and time have elapsed. Note: All work is due by the due date and time. Late submissions will be penalized at 20% of the assessment final grade per day, including weekends.
+
+*/
+
+
+class Books:
+    def __init__(self, book_id, book_name, book_author, year_of_pub, price, status):
+        self.book_id = book_id
+        self.book_name = book_name
+        self.book_author = book_author
+        self.year_of_pub = year_of_pub
+        self.price = price
+        self.status = status
+
+    def add_new_books(self):
+        print(f"Adding new book: {self.book_name}")
+
+    def delete_books(self):
+        print(f"Deleting book: {self.book_name}")
+
+    def display_book_details(self):
+        print(f"Book ID: {self.book_id}")
+        print(f"Name: {self.book_name}")
+        print(f"Author: {self.book_author}")
+        print(f"Year of Publication: {self.year_of_pub}")
+        print(f"Price: {self.price}")
+        print(f"Status: {self.status}")
+
+    def inquiry_book(self):
+        print(f"Inquiry about book: {self.book_name}")
+
+
+class Librarian:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+    def search_book(self, name):
+        print(f"Searching for book: {name}")
+        return True  # Placeholder for actual search logic
+
+    def verify_member(self, id, members):
+        for member in members:
+            if member.user_id == id:
+                print(f"Member verified: {member.user_name}")
+                return True
+        print("Member not found.")
+        return False
+
+    def order_books(self):
+        print("Ordering new books")
+
+    def sell_books(self):
+        print("Selling books")
+
+
+class Publisher:
+    def __init__(self, id, name, address, phone_no):
+        self.id = id
+        self.name = name
+        self.address = address
+        self.phone_no = phone_no
+
+    def add_pub(self):
+        print(f"Adding publisher: {self.name}")
+
+    def modify_pub(self):
+        print(f"Modifying publisher: {self.name}")
+
+    def delete_pub(self):
+        print(f"Deleting publisher: {self.name}")
+
+    def order_status(self):
+        print(f"Checking order status for publisher: {self.name}")
+
+
+class User:
+    def __init__(self, user_id, user_name, user_address, phone_no):
+        self.user_id = user_id
+        self.user_name = user_name
+        self.user_address = user_address
+        self.phone_no = phone_no
+
+    def return_books(self):
+        print(f"User {self.user_name} returning books")
+
+    def pay_fine(self, date):
+        print(f"User {self.user_name} paying fine for date: {date}")
+
+    def add_new_user(self):
+        print(f"Adding new user: {self.user_name}")
+
+    def delete_user(self):
+        print(f"Deleting user: {self.user_name}")
+
+    def update_details(self):
+        print(f"Updating details for user: {self.user_name}")
+
+    def book_purchase(self):
+        print(f"User {self.user_name} purchasing books")
+
+    def display_details(self):
+        print(f"User ID: {self.user_id}")
+        print(f"Name: {self.user_name}")
+        print(f"Address: {self.user_address}")
+        print(f"Phone: {self.phone_no}")
+
+
+class LibraryManagementSystem:
+    def __init__(self):
+        self.books = []
+        self.librarians = []
+        self.publishers = []
+        self.users = []
+
+    def main_menu(self):
+        while True:
+            print("\nLibrary Management System")
+            print("1. Book Management")
+            print("2. User Management")
+            print("3. Librarian Management")
+            print("4. Publisher Management")
+            print("5. Exit")
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                self.book_management()
+            elif choice == '2':
+                self.user_management()
+            elif choice == '3':
+                self.librarian_management()
+            elif choice == '4':
+                self.publisher_management()
+            elif choice == '5':
+                print("Thank you for using the Library Management System.")
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+    def book_management(self):
+        while True:
+            print("\nBook Management")
+            print("1. Add New Book")
+            print("2. Delete Book")
+            print("3. Display Book Details")
+            print("4. Inquiry Book")
+            print("5. Back to Main Menu")
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                self.add_book()
+            elif choice == '2':
+                self.delete_book()
+            elif choice == '3':
+                self.display_book()
+            elif choice == '4':
+                self.inquiry_book()
+            elif choice == '5':
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+    def user_management(self):
+        while True:
+            print("\nUser Management")
+            print("1. Add New User")
+            print("2. Delete User")
+            print("3. Update User Details")
+            print("4. Display User Details")
+            print("5. Return Books")
+            print("6. Pay Fine")
+            print("7. Book Purchase")
+            print("8. Back to Main Menu")
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                self.add_user()
+            elif choice == '2':
+                self.delete_user()
+            elif choice == '3':
+                self.update_user()
+            elif choice == '4':
+                self.display_user_details()
+            elif choice == '5':
+                self.return_books()
+            elif choice == '6':
+                self.pay_fine()
+            elif choice == '7':
+                self.book_purchase()
+            elif choice == '8':
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+    def librarian_management(self):
+        while True:
+            print("\nLibrarian Management")
+            print("1. Add Librarian")
+            print("2. Search Book")
+            print("3. Verify Member")
+            print("4. Order Books")
+            print("5. Sell Books")
+            print("6. Back to Main Menu")
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                self.add_librarian()
+            elif choice == '2':
+                self.search_book()
+            elif choice == '3':
+                self.verify_member()
+            elif choice == '4':
+                self.order_books()
+            elif choice == '5':
+                self.sell_books()
+            elif choice == '6':
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+    def publisher_management(self):
+        while True:
+            print("\nPublisher Management")
+            print("1. Add Publisher")
+            print("2. Modify Publisher")
+            print("3. Delete Publisher")
+            print("4. Order Status")
+            print("5. Back to Main Menu")
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                self.add_publisher()
+            elif choice == '2':
+                self.modify_publisher()
+            elif choice == '3':
+                self.delete_publisher()
+            elif choice == '4':
+                self.order_status()
+            elif choice == '5':
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+    # Book Management Methods
+    def add_book(self):
+        book_id = input("Enter Book ID: ")
+        book_name = input("Enter Book Name: ")
+        book_author = input("Enter Book Author: ")
+        year_of_pub = input("Enter Year of Publication: ")
+        price = float(input("Enter Price: "))
+        status = input("Enter Status: ")
+        book = Books(book_id, book_name, book_author, year_of_pub, price, status)
+        book.add_new_books()
+        self.books.append(book)
+
+    def delete_book(self):
+        book_id = input("Enter Book ID to delete: ")
+        for book in self.books:
+            if book.book_id == book_id:
+                book.delete_books()
+                self.books.remove(book)
+                return
+        print("Book not found.")
+
+    def display_book(self):
+        book_id = input("Enter Book ID to display: ")
+        for book in self.books:
+            if book.book_id == book_id:
+                book.display_book_details()
+                return
+        print("Book not found.")
+
+    def inquiry_book(self):
+        book_name = input("Enter Book Name for inquiry: ")
+        for book in self.books:
+            if book.book_name == book_name:
+                book.inquiry_book()
+                return
+        print("Book not found.")
+
+    # User Management Methods
+    def add_user(self):
+        user_id = input("Enter User ID: ")
+        user_name = input("Enter User Name: ")
+        user_address = input("Enter User Address: ")
+        phone_no = input("Enter Phone Number: ")
+        user = User(user_id, user_name, user_address, phone_no)
+        user.add_new_user()
+        self.users.append(user)
+
+    def delete_user(self):
+        user_id = input("Enter User ID to delete: ")
+        for user in self.users:
+            if user.user_id == user_id:
+                user.delete_user()
+                self.users.remove(user)
+                return
+        print("User not found.")
+
+    def update_user(self):
+        user_id = input("Enter User ID to update: ")
+        for user in self.users:
+            if user.user_id == user_id:
+                user.update_details()
+                return
+        print("User not found.")
+
+    def display_user_details(self):
+        user_id = input("Enter User ID to display details: ")
+        for user in self.users:
+            if user.user_id == user_id:
+                user.display_details()
+                return
+        print("User not found.")
+
+    def return_books(self):
+        user_id = input("Enter User ID: ")
+        for user in self.users:
+            if user.user_id == user_id:
+                user.return_books()
+                return
+        print("User not found.")
+
+    def pay_fine(self):
+        user_id = input("Enter User ID: ")
+        date = input("Enter Date for fine payment: ")
+        for user in self.users:
+            if user.user_id == user_id:
+                user.pay_fine(date)
+                return
+        print("User not found.")
+
+    def book_purchase(self):
+        user_id = input("Enter User ID: ")
+        for user in self.users:
+            if user.user_id == user_id:
+                user.book_purchase()
+                return
+        print("User not found.")
+
+    # Librarian Management Methods
+    def add_librarian(self):
+        id = input("Enter Librarian ID: ")
+        name = input("Enter Librarian Name: ")
+        librarian = Librarian(id, name)
+        self.librarians.append(librarian)
+        print(f"Librarian {name} added successfully.")
+
+    def search_book(self):
+        name = input("Enter Book Name to search: ")
+        for librarian in self.librarians:
+            librarian.search_book(name)
+            return
+        print("No librarian available to search.")
+
+    def verify_member(self):
+        if not self.librarians:
+            print("No librarian available to verify member.")
+            return
+        id = input("Enter Member ID to verify: ")
+        self.librarians[0].verify_member(id, self.users)
+
+    def order_books(self):
+        for librarian in self.librarians:
+            librarian.order_books()
+            return
+        print("No librarian available to order books.")
+
+    def sell_books(self):
+        for librarian in self.librarians:
+            librarian.sell_books()
+            return
+        print("No librarian available to sell books.")
+
+    # Publisher Management Methods
+    def add_publisher(self):
+        id = input("Enter Publisher ID: ")
+        name = input("Enter Publisher Name: ")
+        address = input("Enter Publisher Address: ")
+        phone_no = input("Enter Publisher Phone Number: ")
+        publisher = Publisher(id, name, address, phone_no)
+        publisher.add_pub()
+        self.publishers.append(publisher)
+
+    def modify_publisher(self):
+        id = input("Enter Publisher ID to modify: ")
+        for publisher in self.publishers:
+            if publisher.id == id:
+                publisher.modify_pub()
+                return
+        print("Publisher not found.")
+
+    def delete_publisher(self):
+        id = input("Enter Publisher ID to delete: ")
+        for publisher in self.publishers:
+            if publisher.id == id:
+                publisher.delete_pub()
+                self.publishers.remove(publisher)
+                return
+        print("Publisher not found.")
+
+    def order_status(self):
+        id = input("Enter Publisher ID to check order status: ")
+        for publisher in self.publishers:
+            if publisher.id == id:
+                publisher.order_status()
+                return
+        print("Publisher not found.")
+
+
+if __name__ == "__main__":
+    lms = LibraryManagementSystem()
+    lms.main_menu()
