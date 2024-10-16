@@ -1,0 +1,204 @@
+/* 
+# Introduction:
+* This assignment is the continuation of the second assessment.
+* Students are to add a user interface to the application developed in the previous assessment.
+* Students are allowed to add additional classes to fulfill the requirements.
+* Students must implement basic OOP concepts such as inheritance, polymorphism, and encapsulation.
+
+# Requirements:
+* Library users: Include members and non-members.
+* Book categories: There are different categories for books.
+* Librarians: Some of the librarians are full-time staff.
+* Write the code to display the output.
+* Logging: Logging into the application is required.
+* Reusable objects: Create reusable objects in the program.
+
+# Code-related guidelines:
+* The code should have a consistent, professional, and well-organized appearance.
+* Choose meaningful identifier names.
+* The developed system should take inputs and handle errors in a friendly manner.
+* The code must adhere to OOP concepts with implementation guidelines including modularity, reusability, extensibility, maintainability, and adaptability.   
+
+*/
+
+// Program Onlinee Compile Link : https://www.programiz.com/online-compiler/9iJ7ubpsHPGCU
+// Program Code :
+
+# Base class for a library user
+class User:
+    def __init__(self, username, is_member=False):
+        self.username = username
+        self.is_member = is_member
+
+    def display_info(self):
+        print(f"User: {self.username}, Member: {'Yes' if self.is_member else 'No'}")
+
+# Subclass for members
+class Member(User):
+    def __init__(self, username):
+        super().__init__(username, is_member=True)
+
+# Subclass for non-members
+class NonMember(User):
+    def __init__(self, username):
+        super().__init__(username, is_member=False)
+
+# Class for librarians
+class Librarian:
+    def __init__(self, name, is_full_time):
+        self.name = name
+        self.is_full_time = is_full_time
+
+    def display_info(self):
+        print(f"Librarian: {self.name}, Full-time: {'Yes' if self.is_full_time else 'No'}")
+
+# Class for books
+class Book:
+    def __init__(self, title, category):
+        self.title = title
+        self.category = category
+
+    def display_info(self):
+        print(f"Title: {self.title}, Category: {self.category}")
+
+# Class for Library System
+class LibrarySystem:
+    def __init__(self):
+        self.users = []
+        self.books = []
+        self.librarians = []
+        self.logged_in_user = None  # Track logged-in user
+
+    # Function to add a user (member or non-member)
+    def add_user(self, user):
+        self.users.append(user)
+
+    # Function to add a librarian
+    def add_librarian(self, librarian):
+        self.librarians.append(librarian)
+
+    # Function to add a book
+    def add_book(self, book):
+        self.books.append(book)
+
+    # Display all users
+    def display_users(self):
+        if not self.users:
+            print("No users found.")
+        else:
+            for user in self.users:
+                user.display_info()
+
+    # Display all librarians
+    def display_librarians(self):
+        if not self.librarians:
+            print("No librarians found.")
+        else:
+            for librarian in self.librarians:
+                librarian.display_info()
+
+    # Display all books
+    def display_books(self):
+        if not self.books:
+            print("No books available in the library.")
+        else:
+            for book in self.books:
+                book.display_info()
+
+    # Function to handle login
+    def login(self):
+        username = input("Enter your username: ")
+        user_type = input("Are you a member? (yes/no): ").lower()
+        
+        if user_type == "yes":
+            user = Member(username)
+        else:
+            user = NonMember(username)
+            
+        self.add_user(user)
+        self.logged_in_user = user  # Set the logged-in user
+        print(f"Welcome, {username}!")
+
+    # Function to check if a user is logged in
+    def check_login(self):
+        if self.logged_in_user is None:
+            print("You must log in first.")
+            return False
+        return True
+
+    # Function to add a book dynamically
+    def add_book_interactive(self):
+        if not self.check_login():
+            return
+        title = input("Enter the book title: ")
+        category = input("Enter the book category: ")
+        book = Book(title, category)
+        self.add_book(book)
+        print(f"Book '{title}' added successfully.")
+
+    # Function to add a librarian dynamically
+    def add_librarian_interactive(self):
+        if not self.check_login():
+            return
+        name = input("Enter the librarian's name: ")
+        is_full_time = input("Is the librarian full-time? (yes/no): ").lower() == 'yes'
+        librarian = Librarian(name, is_full_time)
+        self.add_librarian(librarian)
+        print(f"Librarian '{name}' added successfully.")
+
+    # Function for borrowing a book
+    def borrow_book(self, book_title):
+        if not self.check_login():
+            return
+        if self.logged_in_user.is_member:
+            for book in self.books:
+                if book.title == book_title:
+                    print(f"{self.logged_in_user.username} borrowed '{book_title}'.")
+                    self.books.remove(book)  # Remove the borrowed book
+                    return
+            print(f"Sorry, {book_title} is not available.")
+        else:
+            print(f"Sorry, {self.logged_in_user.username}, only members can borrow books.")
+
+    # Main menu for the dynamic application
+    def main_menu(self):
+        while True:
+            print("\n--- Library System Menu ---")
+            print("1. Log in")
+            print("2. Add a book")
+            print("3. Add a librarian")
+            print("4. Display all books")
+            print("5. Display all librarians")
+            print("6. Display all users")
+            print("7. Borrow a book")
+            print("8. Exit")
+            
+            choice = input("Choose an option: ")
+
+            if choice == '1':
+                self.login()
+            elif choice == '2':
+                self.add_book_interactive()
+            elif choice == '3':
+                self.add_librarian_interactive()
+            elif choice == '4':
+                self.display_books()  # Call the display_books directly
+            elif choice == '5':
+                self.display_librarians()  # Call the display_librarians directly
+            elif choice == '6':
+                self.display_users()  # Call the display_users directly
+            elif choice == '7':
+                book_title = input("Enter the title of the book to borrow: ")
+                self.borrow_book(book_title)
+            elif choice == '8':
+                print("Exiting the library system.")
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+# Instantiate the library system
+library_system = LibrarySystem()
+
+# Run the dynamic application
+library_system.main_menu()
+
